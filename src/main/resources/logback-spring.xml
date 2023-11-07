@@ -1,0 +1,45 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <include resource="co/elastic/logging/logback/boot/ecs-console-appender.xml"/>
+    <include resource="co/elastic/logging/logback/boot/ecs-file-appender.xml"/>
+    <property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <property name="LOG_PATH" value="${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}"/>
+    <property name="MAX_HISTORY" value="30"/>
+    <property name="MAX_SIZE" value="5MB"/>
+    <property name="ASYNC_QUEUE_SIZE" value="2000"/>
+    <property name="ASYNC_DISCARD_THRESHOLD" value="0"/>
+    <appender name="CONSOLE_JSON" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="co.elastic.logging.logback.EcsEncoder"/>
+    </appender>
+    <!--  Rolling configuration  -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/spring.log</file>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/spring.%d{yyyy-MM-dd}-[%i].log</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- Max size per file -->
+                <maxFileSize>${MAX_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+    <!--  Configure logging queue  -->
+    <!--  ASYNC_QUEUE_SIZE 2000 = call log.info not over 2000 concurrency  -->
+    <!--  discardingThreshold 0 (default) = concurrent reach to 2000 then event log will wait to available, not discarded -->
+    <!--  discardingThreshold 1 or higher = if the queue is full and a new log event arrives, the oldest log event in the queue will be discarded -->
+    <appender name="APPLOG_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>${ASYNC_QUEUE_SIZE}</queueSize>
+        <discardingThreshold>${ASYNC_DISCARD_THRESHOLD}</discardingThreshold>
+        <appender-ref ref="FILE"/>
+    </appender>
+    <!--  Global configure for all log at level info  -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ECS_JSON_FILE"/>
+        <appender-ref ref="APPLOG_FILE"/>
+    </root>
+</configuration>
