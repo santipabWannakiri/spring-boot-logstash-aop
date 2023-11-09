@@ -25,7 +25,7 @@ public class LoggingAspect {
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
         Object[] request = joinPoint.getArgs();
-        log.info("Entering {}.{} ==> Request payload {}", className, methodName, mapper.writeValueAsString(request));
+        log.info("{}.{} : Response payload - {}", className, methodName, mapper.writeValueAsString(request));
     }
 
     @Around("execution(* com.logstash.aop.serviceImp.*.*(..))")
@@ -43,18 +43,18 @@ public class LoggingAspect {
             if (optionalResponse.isPresent()) {
                 // Response is present, handle it
                 Object actualResponse = optionalResponse.get();
-                log.info("Exiting {}.{} ==> Response payload {}", className, methodName, mapper.writeValueAsString(actualResponse));
+                log.info("{}.{} : Response payload - {}", className, methodName, mapper.writeValueAsString(actualResponse));
             } else {
                 // Response is empty (Optional is empty)
-                log.info("Exiting {}.{} ==> Response is empty", className, methodName);
+                log.info("{}.{} : Response is empty", className, methodName);
             }
         } else if (response instanceof List<?>) {
             // Response is a List, handle it
             List<?> listResponse = (List<?>) response;
-            log.info("Exiting {}.{} ==> Response payload {}", className, methodName, mapper.writeValueAsString(listResponse));
+            log.info("{}.{} : Response payload - {}", className, methodName, mapper.writeValueAsString(listResponse));
         } else {
             // Handle other types if needed
-            log.info("Exiting {}.{} ==> Response payload {}", className, methodName, mapper.writeValueAsString(response));
+            log.info("{}.{} : Response payload - {}", className, methodName, mapper.writeValueAsString(response));
         }
         return response;
     }
