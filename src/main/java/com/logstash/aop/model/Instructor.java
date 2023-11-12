@@ -10,8 +10,9 @@ public class Instructor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String first_name;
-    private String last_name;
+    private String identificationNumber;
+    private String firstName;
+    private String lastName;
     private String email;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "instructor_detail_id")
@@ -20,9 +21,10 @@ public class Instructor {
     public Instructor() {
     }
 
-    public Instructor(String first_name, String last_name, String email, InstructorDetail instructorDetail) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+    public Instructor(String identificationNumber, String firstName, String lastName, String email, InstructorDetail instructorDetail) {
+        this.identificationNumber = identificationNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.instructorDetail = instructorDetail;
     }

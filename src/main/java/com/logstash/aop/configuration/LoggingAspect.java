@@ -2,6 +2,7 @@ package com.logstash.aop.configuration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.logstash.aop.model.LogInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -25,7 +26,8 @@ public class LoggingAspect {
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
         Object[] request = joinPoint.getArgs();
-        log.info("{}.{} : Response payload - {}", className, methodName, mapper.writeValueAsString(request));
+        log.info(mapper.writeValueAsString(new LogInfo(className, methodName, request)));
+//        log.info("{}.{} : Response payload - {}", className, methodName, mapper.writeValueAsString(request));
     }
 
     @Around("execution(* com.logstash.aop.serviceImp.*.*(..))")
@@ -43,7 +45,8 @@ public class LoggingAspect {
             if (optionalResponse.isPresent()) {
                 // Response is present, handle it
                 Object actualResponse = optionalResponse.get();
-                log.info("{}.{} : Response payload - {}", className, methodName, mapper.writeValueAsString(actualResponse));
+                log.info(mapper.writeValueAsString(new LogInfo(className, methodName, actualResponse)));
+//                log.info("{}.{} : Response payload - {}", className, methodName, mapper.writeValueAsString(actualResponse));
             } else {
                 // Response is empty (Optional is empty)
                 log.info("{}.{} : Response is empty", className, methodName);
@@ -51,10 +54,12 @@ public class LoggingAspect {
         } else if (response instanceof List<?>) {
             // Response is a List, handle it
             List<?> listResponse = (List<?>) response;
-            log.info("{}.{} : Response payload - {}", className, methodName, mapper.writeValueAsString(listResponse));
+            log.info(mapper.writeValueAsString(new LogInfo(className, methodName, listResponse)));
+//            log.info("{}.{} : Response payload - {}", className, methodName, mapper.writeValueAsString(listResponse));
         } else {
             // Handle other types if needed
-            log.info("{}.{} : Response payload - {}", className, methodName, mapper.writeValueAsString(response));
+            log.info(mapper.writeValueAsString(new LogInfo(className, methodName, response)));
+//            log.info("{}.{} : Response payload - {}", className, methodName, mapper.writeValueAsString(response));
         }
         return response;
     }
