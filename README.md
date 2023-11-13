@@ -9,7 +9,7 @@ However, this article will not utilize the entire ELK stack. Instead, specific c
 <img src="images/teach-stack-overview.JPG"  alt="image description" width="1000" height="180">
 
 In the illustration, you're going to see that I try to setup "hybrid logging solution". This reflects the combination of on-premise components (Spring Boot, Filebeat, Logstash) and cloud-based storage (S3) for storing logs.\
-Please take a look at the details for each one below.\
+Please take a look at the details for each one below.
 
 `Spring Boot` is responsible for producing log messages related to your application's behavior. These logs could include information about transactions, errors, and other relevant events.
 
