@@ -18,3 +18,6 @@ Please take a look at the details for each one below.
 `Logstash` acts as an intermediary between Filebeat and S3. It processes incoming log entries, applies filters, and prepares the data for storage in S3. It can also enrich logs with additional information, if needed.
 
 `S3` serves as the ultimate destination for log storage. Logstash uploads processed log files to S3, where they can be archived, analyzed, or accessed as needed. 
+
+## Scenario
+I would like to briefly describe the scenario that we will implement before we drill down into the configuration part.
