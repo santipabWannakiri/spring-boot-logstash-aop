@@ -21,3 +21,5 @@ Please take a look at the details for each one below.
 
 ## Scenario
 I would like to briefly describe the scenario that we will implement before we drill down into the configuration part.
+
+<img src="images/spring-boot-log.JPG"  alt="image description" width="1000" height="180">
