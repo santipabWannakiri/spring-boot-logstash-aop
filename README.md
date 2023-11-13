@@ -32,3 +32,4 @@ Certainly! In our scenario, we need to achieve the following:
 
 By adopting this approach, we showcase the capabilities of both Filebeat and Logstash in our log processing pipeline. Filebeat takes care of dropping specific fields, while Logstash handles the marking process.
 
+## Spring Boot configuration
