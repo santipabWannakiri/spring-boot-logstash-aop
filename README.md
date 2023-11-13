@@ -24,5 +24,11 @@ I would like to briefly describe the scenario that we will implement before we d
 According to the illustration below, it's an example of a log format that Spring Boot is going to write into a log file. And you might notice that the log has a pretty good format; this is because I implemented it using Elastic Common Schema (ECS).\
 `The actual log from our application is going to be kept inside the "message"`
 <img src="images/spring-boot-log.JPG"  alt="image description" width="1000" height="180">
+Certainly! In our scenario, we need to achieve the following:
 
+1.`Drop Fields`: Eliminate the className and methodName fields from the logs before they are sent to S3. We'll utilize `Filebeat` to handle this task.
+
+2.`Mark Identification Number`: Apply the identification number "xxxxxxxxxxx" to the logs. This marking operation will be performed by `Logstash`.
+
+By adopting this approach, we showcase the capabilities of both Filebeat and Logstash in our log processing pipeline. Filebeat takes care of dropping specific fields, while Logstash handles the marking process.
 
