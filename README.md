@@ -33,3 +33,5 @@ Certainly! In our scenario, we need to achieve the following:
 By adopting this approach, we showcase the capabilities of both Filebeat and Logstash in our log processing pipeline. Filebeat takes care of dropping specific fields, while Logstash handles the marking process.
 
 ## Spring Boot configuration
+The origin of the log files mentioned earlier is Spring Boot. To create log files, it's essential to set up and configure a log framework like logback within Spring Boot. Assuming this configuration is in place, the next step involves adapting the log file format to conform with the Elastic Common Schema (ECS). To achieve this, importing the co.elastic.logging dependency is necessary, and a few adjustments in the logback file are required. For detailed instructions, you can refer to the article.\
+For additional information, please look at [ECS Logging Java](https://www.elastic.co/guide/en/ecs-logging/java/current/setup.html)
