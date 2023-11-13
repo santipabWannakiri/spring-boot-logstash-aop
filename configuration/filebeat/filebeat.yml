@@ -1,0 +1,26 @@
+filebeat.inputs:
+- type: log
+  paths:
+    - /Users/greatkid/Nokia3310/github/spring-boot-logstash-aop/logs/logstash-aop.log.json
+  json.keys_under_root: true
+  json.overwrite_keys: false  # Set this to false to preserve the original keys
+
+processors:
+- script:
+    lang: javascript
+    id: my_script
+    source: >
+      function process(event) {
+        var message = event.Get("message");
+
+        event.Put("new_field", "new_value");
+
+        var messageData = JSON.parse(message);
+        delete messageData.payload.firstName;
+        delete messageData.methodName;
+        event.Put("message", JSON.stringify(messageData));
+      }
+
+
+output.logstash:
+  hosts: ["localhost:5044"]
