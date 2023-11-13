@@ -23,3 +23,6 @@ Please take a look at the details for each one below.
 I would like to briefly describe the scenario that we will implement before we drill down into the configuration part.
 
 <img src="images/spring-boot-log.JPG"  alt="image description" width="1000" height="180">
+
+According to the illustration above, it's an example of a log format that Spring Boot is going to write into a log file. And you might notice that the log has a pretty good format; this is because I implemented it using Elastic Common Schema (ECS).\
+`The actual log from our application is going to be kept inside the "message"`
