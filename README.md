@@ -82,7 +82,8 @@ processors:
 ```
 For the detailed configuration, please look at [Drop fields from events](https://www.elastic.co/guide/en/beats/filebeat/current/drop-fields.html#drop-fields)
 
-I attempted to configure it as shown in the example above, but unfortunately, it did not produce the desired results. During my research for an alternative solution, I discovered that Filebeat supports the execution of JavaScript code.  [For more information](https://www.elastic.co/guide/en/beats/filebeat/current/processor-script.html#processor-script)
+I attempted to configure it as shown in the example above, but unfortunately, it did not produce the desired results. During my research for an alternative solution, I discovered that Filebeat supports the execution of JavaScript code.  
+For more information [Script Processor](https://www.elastic.co/guide/en/beats/filebeat/current/processor-script.html#processor-script)
 
 Therefore, I decided to use this solution, and the configuration will be like this:
 ```
