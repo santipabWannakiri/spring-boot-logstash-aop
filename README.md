@@ -52,3 +52,7 @@ output.logstash:
   hosts: ["localhost:5044"]
  ```
 For the detailed configuration, please look at [filebeat-input-log-config-json](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-input-log.html#filebeat-input-log-config-json)
+
+```diff
+- Note: Filebeat processes the logs line by line, so the JSON decoding only works if there is one JSON object.
+```
