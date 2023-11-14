@@ -56,3 +56,17 @@ For the detailed configuration, please look at [filebeat-input-log-config-json](
 ```diff
 - Note: Filebeat processes the logs line by line, so the JSON decoding only works if there is one JSON object.
 ```
+According to the message above, if your log is split into multiple lines or if your log has a combination of strings and JSON, In this scenario, the configuration will be like this.
+ ```
+filebeat.inputs:
+- type: log
+  paths:
+    - /path/to/file/logs/example.log
+  multiline.pattern: '^\{'  # Pattern to match the start of a JSON object
+  multiline.negate: true
+  multiline.match: after
+
+output.logstash:
+  hosts: ["localhost:5044"]
+ ```
+For the detailed configuration, please look at [Manage multiline messages](https://www.elastic.co/guide/en/beats/filebeat/current/multiline-examples.html#multiline-examples)
