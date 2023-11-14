@@ -37,5 +37,18 @@ The origin of the log files mentioned earlier is Spring Boot. To create log file
 For additional information, please look at [ECS Logging Java](https://www.elastic.co/guide/en/ecs-logging/java/current/setup.html)
 
 ## Filebeat configuration
-Configuration with Filebeat is an essential thing to do because Filebeat's going to monitor our log file and push new logs to the destination. However, aside from configuring the tallying log, we also need to configure Filbeat to drop some files as well.
+Configuration with Filebeat is an essential thing to do because Filebeat's going to monitor our log file and push new logs to the destination. However, aside from configuring the tallying log, we also need to configure Filbeat to drop some files as well.\
 I will provide an example of Filebeat below.
+
+ ```
+filebeat.inputs:
+- type: log
+  paths:
+    - /path/to/file/logs/example.log
+  json.keys_under_root: true
+  json.overwrite_keys: false
+
+output.logstash:
+  hosts: ["localhost:5044"]
+ ```
+For the detailed configuration, please look at [filebeat-input-log-config-json](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-input-log.html#filebeat-input-log-config-json)
