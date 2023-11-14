@@ -35,3 +35,7 @@ By adopting this approach, we showcase the capabilities of both Filebeat and Log
 ## Spring Boot configuration
 The origin of the log files mentioned earlier is Spring Boot. To create log files, it's essential to set up and configure a log framework like logback within Spring Boot. Assuming this configuration is in place, the next step involves adapting the log file format to conform with the Elastic Common Schema (ECS). To achieve this, importing the co.elastic.logging dependency is necessary, and a few adjustments in the logback file are required. For detailed instructions, you can refer to the article.\
 For additional information, please look at [ECS Logging Java](https://www.elastic.co/guide/en/ecs-logging/java/current/setup.html)
+
+## Filebeat configuration
+Configuration with Filebeat is an essential thing to do because Filebeat's going to monitor our log file and push new logs to the destination. However, aside from configuring the tallying log, we also need to configure Filbeat to drop some files as well.
+I will provide an example of Filebeat below.
