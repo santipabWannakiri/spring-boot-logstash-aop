@@ -100,3 +100,4 @@ processors:
         event.Put("message", JSON.stringify(messageData));
       }
 ```
+## Logstash configuration
