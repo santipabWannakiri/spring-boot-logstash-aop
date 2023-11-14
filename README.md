@@ -94,11 +94,8 @@ processors:
     source: >
       function process(event) {
         var message = event.Get("message");
-
-        event.Put("new_field", "new_value");
-
         var messageData = JSON.parse(message);
-        delete messageData.payload.firstName;
+        delete messageData.className;
         delete messageData.methodName;
         event.Put("message", JSON.stringify(messageData));
       }
