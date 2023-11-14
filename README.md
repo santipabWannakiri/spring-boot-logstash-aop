@@ -70,3 +70,33 @@ output.logstash:
   hosts: ["localhost:5044"]
  ```
 For the detailed configuration, please look at [Manage multiline messages](https://www.elastic.co/guide/en/beats/filebeat/current/multiline-examples.html#multiline-examples)
+
+Until now, we've set up the source logs that Filebeat will monitor and the destination where Filebeat will send our logs. The next step is to configure Filebeat to drop specific fields. In this instance, we want to remove the className and methodName fields.\
+Please refer to the previous illustration for context.
+
+In order to drop fields, Filebeat actually has a feature to remove specific field names very easily, like this:
+```
+processors:
+  - drop_fields:
+      fields: ["className", "methodName"]
+```
+For the detailed configuration, please look at [Drop fields from events](https://www.elastic.co/guide/en/beats/filebeat/current/drop-fields.html#drop-fields)
+
+I attempted to configure it as shown in the example above, but unfortunately, it did not produce the desired results. During my research for an alternative solution, I discovered that Filebeat supports the execution of JavaScript code.  
+For more information [Script Processor](https://www.elastic.co/guide/en/beats/filebeat/current/processor-script.html#processor-script)
+
+Therefore, I decided to use this solution, and the configuration will be like this:
+```
+processors:
+- script:
+    lang: javascript
+    id: my_script
+    source: >
+      function process(event) {
+        var message = event.Get("message");
+        var messageData = JSON.parse(message);
+        delete messageData.className;
+        delete messageData.methodName;
+        event.Put("message", JSON.stringify(messageData));
+      }
+```
