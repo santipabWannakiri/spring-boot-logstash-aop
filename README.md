@@ -101,6 +101,6 @@ processors:
       }
 ```
 ## Logstash configuration
-On the Logstash configuration, there are 2 parts that we need to configure to follow the workflow and requirement at below
-1.Marking Identification Number.
+On the Logstash configuration, there are 2 parts that we need to configure to follow the workflow and requirement at below\
+1.Marking Identification Number.\
 2.Upload log file after process to AWS S3 bucket.
