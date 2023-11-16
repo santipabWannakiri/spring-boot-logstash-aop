@@ -139,5 +139,32 @@ The other thing that we need to configure in Logstash is the S3 bucket location 
 
 I suggest taking a look here: [S3 output plugin](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-s3.html#plugins-outputs-s3)
 
-In this scenario, I'm going to use the `AWS Assume Role` concept to get credentials tokens and then put the credentials into environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY, which is way number 3 from the above list.
+#### Assume Role configuration
+In this scenario, I'm going to use the `AWS Assume Role` concept to get credentials tokens and then put the credentials into environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, which is way number 3 from the above list.
 
+Assuming role configuration, you can follow the steps below. 
+1. `Create IAM User`: create an IAM user that will be used to assume the role.
+
+2. `Create Role`: Create an IAM role that specifies the trusted entity (in this case, the IAM user you created). This is done through a trust policy.
+
+2.1 `Provide Trust Policy`: The trust policy should define who can assume the role. If it's the IAM user, then the trust policy should reference the ARN of the IAM user.
+Example trust policy for assuming by an IAM user:
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::account-id-with-user:user/username"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+
+```
+
+2.2 `Provide Permissions for the Role`: Attach policies to the role to grant the necessary permissions. In your example, you mentioned that the role needs to be able to upload and access S3 buckets. Attach policies that grant the required S3 permissions.
+
+3. `Assuming the Role`:
