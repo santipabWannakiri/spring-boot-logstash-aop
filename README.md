@@ -167,4 +167,8 @@ Example trust policy for assuming by an IAM user:
 
 2.2 `Provide Permissions for the Role`: Attach policies to the role to grant the necessary permissions. In your example, you mentioned that the role needs to be able to upload and access S3 buckets. Attach policies that grant the required S3 permissions.
 
+Reference document for 1, 2, 2.1, 2.2: [Creating an IAM role (console)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html)
+3. Configuration and credential file settings:
+ Reference document: [Configuration and credentials precedence](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html)
+
 3. `Assuming the Role`:
