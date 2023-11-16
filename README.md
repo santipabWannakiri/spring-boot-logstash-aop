@@ -130,3 +130,11 @@ filter {
   }
 }
 ```
+The other thing that we need to configure in Logstash is the S3 bucket location that we let Logstash upload log files to. Configuration S3 in Logtash there are many way depend on the way how you will retrive credentials for example :
+>1. Static configuration, using access_key_id and secret_access_key params in logstash plugin config
+>2. External credentials file specified by aws_credentials_file
+>3. Environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+>4. Environment variables AMAZON_ACCESS_KEY_ID and AMAZON_SECRET_ACCESS_KEY
+>5. IAM Instance Profile (available when running inside EC2)
+
+I suggest taking a look here: [S3 output plugin](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-s3.html#plugins-outputs-s3)
