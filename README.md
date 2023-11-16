@@ -111,4 +111,22 @@ Logtash supports adding and installing various plugins for input, output, and fi
 >GeoIP Filter\
 >Date Filter
 
-However, in this case, I'm going to use the Ruby Filter plugin, for which you can provide a Ruby script to meet your requirements. For more information [Ruby filter plugin](https://www.elastic.co/guide/en/logstash/current/plugins-filters-ruby.html#plugins-filters-ruby)
+However, in this case, I'm going to use the Ruby Filter plugin, for which you can provide a Ruby script to meet your requirements.\
+For more information [Ruby filter plugin](https://www.elastic.co/guide/en/logstash/current/plugins-filters-ruby.html#plugins-filters-ruby),
+And here is an example configuration for marking the identification name:
+```
+filter {
+  json {
+    source => "message"
+    target => "parsed_message"
+  }
+
+  if [parsed_message] {
+    ruby {
+      code => '
+        event.set("[parsed_message][message]", event.get("[parsed_message][message]").gsub(/"identificationNumber":"[^"]+"/, "\"identificationNumber\":\"XXXXXXXXXXXXX\""))
+      '
+    }
+  }
+}
+```
