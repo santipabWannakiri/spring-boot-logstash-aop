@@ -138,3 +138,6 @@ The other thing that we need to configure in Logstash is the S3 bucket location 
 >5. IAM Instance Profile (available when running inside EC2)
 
 I suggest taking a look here: [S3 output plugin](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-s3.html#plugins-outputs-s3)
+
+In this scenario, I'm going to use the AWS Assume Role concept to get credentials tokens and then put the credentials into environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY, which is way number 3 from the above list.
+
