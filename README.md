@@ -104,3 +104,6 @@ processors:
 On the Logstash configuration, there are 2 parts that we need to configure to follow the workflow and requirement at below\
 1.Marking Identification Number.\
 2.Upload log file after process to AWS S3 bucket.
+
+Logtash supports adding and installing various plugins for input, output, and filtering. So in order to mark some message, we can add a filter level to process the message before sending it out to output. And filter level, there are many ways that support marking messages, for example.
+
