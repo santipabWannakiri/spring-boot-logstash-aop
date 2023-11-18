@@ -192,8 +192,20 @@ Default output format [None]: json
 The `AWS Access Key ID` and `Secret Access Key` are typically obtained by creating access keys for an IAM user in the AWS Management Console.
 
 In order to get it, please navigate to the menu at the following:
->Navigate to IAM Console -> the IAM User -> Security Credentials -> Create Access Key
+> Navigate to IAM Console -> the IAM User -> Security Credentials -> Create Access Key
 
  Reference document: [Configuration and credentials precedence](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html)
 
-3. `Assuming the Role`:
+4. `Assuming the Role`: So far, I believe you have completed the setup prerequisite. Now we will assume the role via the CLI.
+
+To assume a role using the AWS CLI, you can use the aws sts assume-role command. Here is an example command:
+```
+aws sts assume-role \
+    --role-arn arn:aws:iam::account-id:role/role-name \
+    --role-session-name "session-name"
+```
+--role-arn: The Amazon Resource Name (ARN) of the role you want to assume.\
+--role-session-name: A name for the assumed role session.
+
+To obtain ARN for an IAM role, you can navigate to
+> Navigate to IAM Console ->  IAM Service -> Role -> your IAM role -> View Role Details -> Copy ARN
