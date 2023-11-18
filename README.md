@@ -168,7 +168,18 @@ Example trust policy for assuming by an IAM user:
 2.2 `Provide Permissions for the Role`: Attach policies to the role to grant the necessary permissions. In your example, you mentioned that the role needs to be able to upload and access S3 buckets. Attach policies that grant the required S3 permissions.
 
 Reference document for 1, 2, 2.1, 2.2: [Creating an IAM role (console)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html)
-3. Configuration and credential file settings:
+
+3. `Configuration and credential file settings`: Before we can assume roles via the AWS Security Token Service (AWS STS) by using the commandline, there are a few things that need to be prerequisites:
+
+Set up the initial configuration for CLI
+```
+aws configure
+```
+ It prompts the user to provide AWS Access Key ID, Secret Access Key, default region, and output format. The configuration details are stored in the ~/.aws/config and ~/.aws/credentials files.
+
+> `~/.aws/config`: This file is used to store configuration settings for the AWS CLI. It includes information such as the default region, output format, and other settings.\
+> `~/.aws/credentials`: This file is used to store AWS access key ID, secret access key, and session token information. 
+
  Reference document: [Configuration and credentials precedence](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html)
 
 3. `Assuming the Role`:
