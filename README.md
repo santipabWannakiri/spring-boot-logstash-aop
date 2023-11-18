@@ -225,3 +225,4 @@ Example output: assume role command
     }
 }
 ```
+According to the example output above, `AccessKeyId` and `SecreateAccessKey` are the things that we need to export to the environment parameters `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` that we're going to conduct in the next step.
