@@ -189,6 +189,11 @@ Default region name [None]: us-west-2
 Default output format [None]: json
 ```
 
+The `AWS Access Key ID` and `Secret Access Key` are typically obtained by creating access keys for an IAM user in the AWS Management Console.
+
+In order to get it, please navigate to the menu at the following:
+>Navigate to IAM Console -> the IAM User -> Security Credentials -> Create Access Key
+
  Reference document: [Configuration and credentials precedence](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html)
 
 3. `Assuming the Role`:
