@@ -178,7 +178,16 @@ aws configure
  It prompts the user to provide AWS Access Key ID, Secret Access Key, default region, and output format. The configuration details are stored in the ~/.aws/config and ~/.aws/credentials files.
 
 > `~/.aws/config`: This file is used to store configuration settings for the AWS CLI. It includes information such as the default region, output format, and other settings.\
-> `~/.aws/credentials`: This file is used to store AWS access key ID, secret access key, and session token information. 
+> `~/.aws/credentials`: This file is used to store AWS access key ID, secret access key, and session token information.
+
+Example
+```
+$ aws configure
+AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
+AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+Default region name [None]: us-west-2
+Default output format [None]: json
+```
 
  Reference document: [Configuration and credentials precedence](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html)
 
