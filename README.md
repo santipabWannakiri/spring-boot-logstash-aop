@@ -209,3 +209,19 @@ aws sts assume-role \
 
 To obtain ARN for an IAM role, you can navigate to
 > Navigate to IAM Console ->  IAM Service -> Role -> your IAM role -> View Role Details -> Copy ARN
+
+Example output: assume role command
+```
+{
+    "Credentials": {
+        "AccessKeyId": "ASIAABCDEFGHIJKLMNO",
+        "SecretAccessKey": "abcdefghij1234567890klmnopqrstuvwxy1234567890",
+        "SessionToken": "FwoGZXIvYXdzEGoaDKtLRJFZkiJOYDI/AYaPAZVLZ1R9TCDbBBoIaGB0x8Q0Kavw4mRSqCfGCj%2BYN1u%2Fv%2Fd1o2%2BH9JVR9fqchcvHDa%2FRDwBBoA1k2w8WxYkYsgy69CPVrRKhvqzva%2Fe9QwP1ReRHHbxn1RhtoWZLS69ZTdC6ia%2F%2FjLZgYQ2gJqNkUHl%2FaiFZtjn8XKOtMfZVW7SEvtTOL%2Fk1v%2FyYiDkikgKJnvZRkLqrq5krMEG8V2rcGsjE0tIuBmG8KwOWS2EzzrP1dcLilryfe0nrZy8RlI2zub8BpFSbnH2Wb58yE8zzgIeRSX3yV4O%2BMeu7L7GmiMNhRHoP5%2BUtD1OoqAD%2Fla99Epeh3OjjW55z%2BNF3LgrI8v7Wu7VV64edpNmi2s",
+        "Expiration": "2023-01-01T12:00:00Z"
+    },
+    "AssumedRoleUser": {
+        "AssumedRoleId": "AROABCDEFGHIJKLMNO/session-name",
+        "Arn": "arn:aws:sts::account-id:assumed-role/role-name/session-name"
+    }
+}
+```
