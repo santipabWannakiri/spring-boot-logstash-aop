@@ -139,7 +139,7 @@ The other thing that we need to configure in Logstash is the S3 bucket location 
 
 I suggest taking a look here: [S3 output plugin](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-s3.html#plugins-outputs-s3)
 
-#### Assume Role configuration
+### Assume Role configuration
 In this scenario, I'm going to use the `AWS Assume Role` concept to get credentials tokens and then put the credentials into environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, which is way number 3 from the above list.
 
 Assuming role configuration, you can follow the steps below. 
@@ -225,4 +225,64 @@ Example output: assume role command
     }
 }
 ```
-According to the example output above, `AccessKeyId` and `SecreateAccessKey` are the things that we need to export to the environment parameters `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` that we're going to conduct in the next step.
+According to the example output above, `AccessKeyId` and `SecreateAccessKey` are the things that we need to export to the environment parameters `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
+
+Example command to export environment parameters
+```
+export AWS_ACCESS_KEY_ID="ASIAABCDEFGHIJKLMNO"
+export AWS_SECRET_ACCESS_KEY="abcdefghij1234567890klmnopqrstuvwxy1234567890"
+export AWS_SESSION_TOKEN="FwoGZXIvYXdzEGoaDKtLRJFZkiJOYDI/AYaPAZV"
+```
+
+The other way, for more convenience, is to put all the commands into the bash script. 
+```
+#!/bin/bash
+
+# AWS CLI profile for AWS SSO
+AWS_SSO_PROFILE="default"
+
+# Role to assume
+ROLE_TO_ASSUME="your_arn_role"
+
+# Session name
+SESSION_NAME="your_session_name"
+
+# Run the AWS CLI command to assume the role
+result=$(aws sts assume-role \
+  --profile "$AWS_SSO_PROFILE" \
+  --role-arn "$ROLE_TO_ASSUME" \
+  --role-session-name "$SESSION_NAME")
+
+# Extract and set temporary credentials as environment variables
+AWS_ACCESS_KEY_ID=$(echo "$result" | grep -o '"AccessKeyId": "[^"]*' | cut -d'"' -f4)
+AWS_SECRET_ACCESS_KEY=$(echo "$result" | grep -o '"SecretAccessKey": "[^"]*' | cut -d'"' -f4)
+AWS_SESSION_TOKEN=$(echo "$result" | grep -o '"SessionToken": "[^"]*' | cut -d'"' -f4)
+
+# Export the temporary credentials as environment variables
+export AWS_ACCESS_KEY_ID
+export AWS_SECRET_ACCESS_KEY
+export AWS_SESSION_TOKEN
+
+# Print the temporary credentials for verification
+echo "Temporary credentials obtained:"
+echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
+echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
+echo "AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN"
+```
+
+## Logstash S3 configuration
+So far, We have 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
