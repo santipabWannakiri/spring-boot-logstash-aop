@@ -298,7 +298,33 @@ Example S3 output configuration
 
 Reference : [S3 output plugin](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-s3.html#plugins-outputs-s3)
 
+## Execute time!!
+To make all of them work together, there are steps below.
+1. Clone project and start spring boot app
+```
+mvn clean install && mvn spring-boot:run
+```
+2. Install AWS CLI and run script to get token
+```
+. ./assume-role.sh
+```
+3. [Download Logstash](https://www.elastic.co/downloads/logstash)\
+To start Logstash with your configuration file
+```
+bin/logstash -f your-pipeline.conf --config.reload.automatic
+```
 
+4. [Download Filebeat](https://www.elastic.co/downloads/beats/filebeat)\
+To start Filebeat with your configuration file
+ ```
+./filebeat -e -c your-filebeat.yml -d "publish"
+ ```
 
+5. Test to call Apis to generate a log
+ ```
+curl --location 'http://localhost:8080/instructor?id=3'
+ ```
+ The logs file that is written by Spring Boot will be kept in
+ >spring-boot-logstash-aop/logs/logstash-aop.log.json
 
-
+Reference : [Parsing Logs with Logstash](https://www.elastic.co/guide/en/logstash/current/advanced-pipeline.html#advanced-pipeline)
