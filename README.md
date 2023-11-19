@@ -271,16 +271,32 @@ echo "AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN"
 ```
 
 ## Logstash S3 configuration
-So far, We have 
+Having followed the instructions above, you should now have successfully obtained temporary AWS credentials, enabling the AWS CLI to interact with the AWS Cloud. The last step involves configuring Logstash to connect to an S3 bucket and granting Logstash the necessary permissions to upload files.
 
+Example S3 output configuration
+```
+ output {
+     stdout { codec => rubydebug }
+ s3{
+     bucket => "yourBucketName" 
+     region => "us-east-1"
+     codec => "json"
+     canned_acl => "private"
+     time_file => 2
+     prefix => "%{+YYYY}/%{+MM}/%{+dd}/"
+     encoding => "gzip"
+    }
+ }
+```
+>`bucket`: The name of the S3 bucket where Logstash will store the data.\
+`region`: The AWS region where the S3 bucket is located.\
+`codec`: The codec used for encoding data (in this case, JSON).\
+`canned_acl`: The access control for the uploaded files (in this case, set to "private").\
+`time_file`: File rotation setting, indicating the time interval for creating new files. (minute)\
+`prefix`: The prefix used in the S3 bucket for organizing data by date.\
+`encoding`: The encoding used for compressing the data (in this case, Gzip).
 
-
-
-
-
-
-
-
+Reference : [S3 output plugin](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-s3.html#plugins-outputs-s3)
 
 
 
